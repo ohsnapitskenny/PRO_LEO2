@@ -71,4 +71,4 @@ def make_sound_sad():
 if __name__ == '__main__':
     ring = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
     ring.begin()
-    app.run()
+    app.run(host='0.0.0.0')
