@@ -1,6 +1,7 @@
 import time
 from flask import Flask
 from neopixel import *
+from playsound import playsound
 
 # NeoPixel
 LED_COUNT = 12  # Number of LED PIXELS
@@ -18,6 +19,7 @@ RED = Color(255, 0, 0)
 GREEN = Color(0, 255, 0)
 BLUE = Color(0, 0, 255)
 BLACK = Color(0, 0, 0)
+
 app = Flask(__name__)
 
 
@@ -59,13 +61,12 @@ def hello_world():
 @app.route('/happy')
 def make_sound_happy():
     expectsRain(ring, RED, WAIT_MS)
-    stroboscopeEffect(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
-    time.sleep(5)
     return 'Happy'
 
 @app.route('/sad')
 def make_sound_sad():
+    playsound('waaah.mp3')
     return 'Sad'
 
 if __name__ == '__main__':
