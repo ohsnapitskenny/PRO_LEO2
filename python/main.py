@@ -66,7 +66,7 @@ def make_sound_happy():
 
 @app.route('/sad')
 def make_sound_sad():
-    playsound('waaah.mp3')
+    playsound('waaah.mp3', block='true')
     return 'Sad'
 
 if __name__ == '__main__':
