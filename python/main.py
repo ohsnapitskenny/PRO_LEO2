@@ -1,7 +1,6 @@
 import time
 from flask import Flask
 from neopixel import *
-from playsound import playsound
 
 # NeoPixel
 LED_COUNT = 12  # Number of LED PIXELS
@@ -54,19 +53,19 @@ def resetLeds(ring, color, wait_ms=10):
         ring.show()
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'OPTIONS'])
+@crossdomain(origin='*')
 def hello_world():
     return 'Use /happy & /sad'
 
 @app.route('/happy')
-def make_sound_happy():
+def happy():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Happy'
 
 @app.route('/sad')
-def make_sound_sad():
-    playsound('waaah.mp3', block='true')
+def sad():
     return 'Sad'
 
 if __name__ == '__main__':
