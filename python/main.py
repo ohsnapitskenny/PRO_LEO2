@@ -21,7 +21,6 @@ BLACK = Color(0, 0, 0)
 
 app = Flask(__name__)
 
-
 def expectsRain(ring, color, wait_ms=10):
     for t in range(0, 5, 1):
         colorWipe(ring, color, wait_ms)
@@ -53,18 +52,17 @@ def resetLeds(ring, color, wait_ms=10):
         ring.show()
 
 
-@app.route('/', methods=['GET', 'OPTIONS'])
-@crossdomain(origin='*')
+@app.route('/', methods=['GET', 'OPTIONS'], origin='*')
 def hello_world():
     return 'Use /happy & /sad'
 
-@app.route('/happy')
+@app.route('/happy', methods=['GET', 'OPTIONS'], origin='*')
 def happy():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Happy'
 
-@app.route('/sad')
+@app.route('/sad', methods=['GET', 'OPTIONS'], origin='*')
 def sad():
     return 'Sad'
 
