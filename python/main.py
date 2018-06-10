@@ -1,5 +1,6 @@
 import time
 from flask import Flask
+from flask_cors import CORS
 from neopixel import *
 
 # NeoPixel
@@ -20,6 +21,7 @@ BLUE = Color(0, 0, 255)
 BLACK = Color(0, 0, 0)
 
 app = Flask(__name__)
+CORS(app)
 
 def expectsRain(ring, color, wait_ms=10):
     for t in range(0, 5, 1):
@@ -52,17 +54,17 @@ def resetLeds(ring, color, wait_ms=10):
         ring.show()
 
 
-@app.route('/', methods=['GET', 'OPTIONS'], origin='*')
+@app.route('/', methods=['GET', 'OPTIONS'])
 def hello_world():
     return 'Use /happy & /sad'
 
-@app.route('/happy', methods=['GET', 'OPTIONS'], origin='*')
+@app.route('/happy', methods=['GET', 'OPTIONS'])
 def happy():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Happy'
 
-@app.route('/sad', methods=['GET', 'OPTIONS'], origin='*')
+@app.route('/sad', methods=['GET', 'OPTIONS'])
 def sad():
     return 'Sad'
 
