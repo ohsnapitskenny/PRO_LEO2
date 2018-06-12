@@ -58,14 +58,16 @@ def resetLeds(ring, color, wait_ms=10):
 def hello_world():
     return 'Use /happy & /sad'
 
-@app.route('/happy', methods=['GET', 'OPTIONS'])
-def happy():
+@app.route('/rain', methods=['GET', 'OPTIONS'])
+def expectsRain():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Happy'
 
-@app.route('/sad', methods=['GET', 'OPTIONS'])
-def sad():
+@app.route('/lost', methods=['GET', 'OPTIONS'])
+def lostDevice():
+    expectsRain(ring, BLUE, WAIT_MS)
+    resetLeds(ring, BLACK)
     return 'Sad'
 
 if __name__ == '__main__':
