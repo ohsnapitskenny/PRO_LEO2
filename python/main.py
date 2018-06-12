@@ -28,7 +28,6 @@ def expectsRain(ring, color, wait_ms=10):
         colorWipe(ring, color, wait_ms)
         colorWipe(ring, BLACK, wait_ms)
 
-
 # ColorFX's
 def colorWipe(strip, color, wait_ms=50):
     for i in range(strip.numPixels()):
@@ -47,7 +46,7 @@ def hello_world():
     return 'Use /happy & /sad'
 
 @app.route('/rain')
-def expectsRain():
+def expectRain():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Rain'
