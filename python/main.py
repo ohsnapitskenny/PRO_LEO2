@@ -15,9 +15,9 @@ LED_BRIGHTNESS = 100  # Set to 0 for darkest and 255 for brightest
 WAIT_MS = 40
 
 # COLORS
-RED = Color(255, 0, 0)
+RED = Color(0, 0, 255)
 GREEN = Color(0, 255, 0)
-BLUE = Color(0, 0, 255)
+BLUE = Color(255, 0,0)
 BLACK = Color(0, 0, 0)
 
 app = Flask(__name__)
