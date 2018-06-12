@@ -36,18 +36,6 @@ def colorWipe(strip, color, wait_ms=50):
         strip.show()
         time.sleep(wait_ms / 1000.0)
 
-
-def stroboscopeEffect(strip, color, wait_ms=50, iterations=10):
-    for j in range(iterations):
-        for q in range(3):
-            for i in range(0, strip.numPixels(), 3):
-                strip.setPixelColor(i + q, color)
-            strip.show()
-            time.sleep(wait_ms / 1000.0)
-            for i in range(0, strip.numPixels(), 3):
-                strip.setPixelColor(i + q, 0)
-
-
 def resetLeds(ring, color, wait_ms=10):
     for i in range(ring.numPixels()):
         ring.setPixelColor(i, color)
@@ -62,13 +50,20 @@ def hello_world():
 def expectsRain():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
-    return 'Happy'
+    return 'Rain'
 
 @app.route('/lost', methods=['GET', 'OPTIONS'])
 def lostDevice():
     expectsRain(ring, BLUE, WAIT_MS)
     resetLeds(ring, BLACK)
-    return 'Sad'
+    return 'Lost'
+
+@app.route('/return', methods=['GET', 'OPTIONS'])
+def returnDevice():
+    expectsRain(ring, GREEN, WAIT_MS)
+    resetLeds(ring, BLACK)
+    return 'Lost'
+
 
 if __name__ == '__main__':
     ring = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS)
