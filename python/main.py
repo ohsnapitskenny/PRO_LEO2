@@ -42,23 +42,23 @@ def resetLeds(ring, color, wait_ms=10):
         ring.show()
 
 
-@app.route('/', methods=['GET', 'OPTIONS'])
+@app.route('/')
 def hello_world():
     return 'Use /happy & /sad'
 
-@app.route('/rain', methods=['GET', 'OPTIONS'])
+@app.route('/rain')
 def expectsRain():
     expectsRain(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Rain'
 
-@app.route('/lost', methods=['GET', 'OPTIONS'])
+@app.route('/lost')
 def lostDevice():
     expectsRain(ring, BLUE, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Lost'
 
-@app.route('/return', methods=['GET', 'OPTIONS'])
+@app.route('/return')
 def returnDevice():
     expectsRain(ring, GREEN, WAIT_MS)
     resetLeds(ring, BLACK)
