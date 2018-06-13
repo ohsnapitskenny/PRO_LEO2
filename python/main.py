@@ -15,16 +15,17 @@ LED_BRIGHTNESS = 100  # Set to 0 for darkest and 255 for brightest
 WAIT_MS = 40
 
 # COLORS
-RED = Color(0, 0, 255)
-GREEN = Color(0, 255, 0)
-BLUE = Color(255, 0,0)
+RED = Color(255, 0,0)
+BLUE = Color(0, 0, 255)
+ORANGE = Color(255, 165, 0)
+
 BLACK = Color(0, 0, 0)
 
 app = Flask(__name__)
 CORS(app)
 
 def expectsRain(ring, color, wait_ms=10):
-    for t in range(0, 5, 1):
+    for t in range(0, 3, 1):
         colorWipe(ring, color, wait_ms)
         colorWipe(ring, BLACK, wait_ms)
 
@@ -40,26 +41,35 @@ def resetLeds(ring, color, wait_ms=10):
         ring.setPixelColor(i, color)
         ring.show()
 
+def stroboscopeEffect(strip, color, wait_ms=50, iterations=10):
+    for j in range(iterations):
+        for q in range(3):
+            for i in range(0, strip.numPixels(), 3):
+                strip.setPixelColor(i + q, color)
+            strip.show()
+            time.sleep(wait_ms / 1000.0)
+            for i in range(0, strip.numPixels(), 3):
+                strip.setPixelColor(i + q, 0)
 
 @app.route('/')
 def hello_world():
-    return 'Use /happy & /sad'
+    return 'Use the following: rain/lost/return'
 
 @app.route('/rain')
 def expectRain():
-    expectsRain(ring, RED, WAIT_MS)
+    expectsRain(ring, BLUE, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Rain'
 
 @app.route('/lost')
 def lostDevice():
-    expectsRain(ring, BLUE, WAIT_MS)
+    stroboscopeEffect(ring, RED, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Lost'
 
 @app.route('/return')
 def returnDevice():
-    expectsRain(ring, GREEN, WAIT_MS)
+    stroboscopeEffect(ring, ORANGE, WAIT_MS)
     resetLeds(ring, BLACK)
     return 'Lost'
 
